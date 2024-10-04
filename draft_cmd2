@@ -216,3 +216,307 @@ echo 'This is a safe command for testing purposes.'
 echo 'Test Event' | Out-File -FilePath C:\\temp\\test.txt
 eventcreate /T ERROR /ID 100 /L SYSTEM /SO 'Hardware Error' /D 'Test hardware error event'
 ping 31.223.76.1
+
+Get-WmiObject -Query 'SELECT * FROM Win32_LogicalDisk WHERE DriveType = 3'
+wevtutil qe System /rd:true /c:1 /f:text
+eventcreate /T Information /ID 50037 /L System /SO 'Test Event' /D 'This is a test event for Syslog Collector state change alert.'
+netsh http show servicestate
+wevtutil sl Microsoft-Windows-Sysmon/Operational /e:true
+tasklist /v
+echo 'This is a test command for generating Windows Event IDs.'
+powershell -Command \""Invoke-WebRequest -Uri 'http://localhost/autodiscover/autodiscover.json' -Headers @{ 'X-Rps-CAT' = 'test' }\""
+eventcreate /ID 50047 /L APPLICATION /T ERROR /SO ELM /D \""Error communicating with ELM\""
+wevtutil cl System
+echo 'Test' > test.txt
+cscript.exe //nologo C:\\test.vbs
+netsh advfirewall firewall add rule name=\""Test Rule\"" dir=in action=block protocol=TCP localport=80
+type nul > c:\\temp\\testfile.txt
+echo 'URL|10814778825021535730[///etc/passwd,/etc/passwd,evil,file://,localhost,system($_GET]' > test.txt
+ping www.suspiciousurl.com
+net localgroup \""Remote Desktop Users\""
+powershell.exe -Command \""New-MailboxExportRequest -Mailbox ExampleMailbox -FilePath \\\\ExampleServer\\ExampleShare\\ExampleMailbox.pst\""
+wevtutil cl System
+schtasks /create /sc daily /tn TestTask /tr calc.exe
+wevtutil el
+REG ADD HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\System /v GroupPolicyRefreshTime /t REG_DWORD /d 30 /f
+ping www.google.com
+tasklist | findstr /i \""cmd\""
+wevtutil qe Security /c:1 /rd:true /f:text
+net user
+logman create trace \""IIS_Trace\"" -p \""IIS: Logging\"" 255 5 -o \""c:\\log\\iis_trace.etl\"" -ets
+rundll32.exe url.dll,FileProtocolHandler https://www.example.com
+net user administrator
+New-Service -Name \""TestService\"" -BinaryFilePathName \""C:\\Windows\\System32\\notepad.exe\""
+ping -n 1 HONEYPOT_SERVER
+route print
+net localgroup administrators
+arp -a
+net share
+wmic useraccount get name,sid
+netsh advfirewall show allprofiles
+whoami /all
+powershell -Command \""Add-Type -TypeDefinition '[DllImport(\\\""dnsapi\\\"")]public static extern int DnsFlushResolverCache()
+net accounts /maxpwage:unlimited
+whoami /priv
+netsh advfirewall set allprofiles state off
+net user
+vssadmin delete shadows /all /quiet
+adfind -default -f \""(&(objectcategory=person)(objectclass=user)(adminCount=1))\"" samaccountname
+arp -a
+netstat -ano
+Get-ADUser -Filter * | Select-Object Name, UserPrincipalName, Enabled
+net user guest /active:yes
+procdump.exe -ma lsass.exe lsass.dmp
+klist purge
+whoami
+klist purge
+Start-Process -FilePath 'C:\\Windows\\System32\\smss.exe'
+systeminfo
+tasklist
+qprocess *
+netstat -ano
+adfind -default -f objectcategory=person
+Get-Process | Where-Object { $_.MainWindowTitle }
+REG ADD HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\System /v EnableSmartScreen /t REG_DWORD /d 1 /f
+reg add \""HKLM\\SOFTWARE\\Microsoft\\Windows Defender\"" /v \""DisableAntiSpyware\"" /t REG_DWORD /d 1 /f
+sc query WinDefend
+certutil -decode input.txt output.txt
+certutil -encode input.txt output.txt
+certutil.exe -verifyCtl -split -f http://example.com/test.cab
+reg add HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Run /v Test /t REG_SZ /d calc.exe
+reg add HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Run /v Spynet /t REG_SZ /d calc.exe
+net user /add testuser TestPassword123!
+echo 'This is a test for Zenmap tool execution'
+reg add \""HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon\"" /v AutoAdminLogon /t REG_SZ /d 1 /f
+reg add \""HKLM\\SYSTEM\\CurrentControlSet\\Services\\Eventlog\\Security\"" /v AutoBackupLogFiles /t REG_DWORD /d 0 /f
+cmd.exe /c echo 'Hello, World!'
+netsh advfirewall set allprofiles state off
+whoami
+net user /add TestUser TestPassword123
+echo 'Simulating Outflank-Dumpert Tool Activity'
+net localgroup TestGroup /delete
+echo 'This is a test for hashcat' > test.txt && hashcat.exe -m 0 -a 0 test.txt wordlist.txt
+nltest /domain_trusts
+attrib +h C:\\test.txt
+net localgroup Administrators TestUser /delete
+netsh advfirewall show allprofiles state
+certutil.exe -urlcache -split -f https://www.example.com/testfile.txt testfile.txt
+net user /add TestUser TestPassword123
+findstr /s password *.txt
+net user /delete testuser
+echo 'This is a test for XORDump usage detection.' > test.txt
+netsh advfirewall show allprofiles
+cscript //nologo C:\\path\\to\\your\\script.vbs
+start winword.exe && start cmd.exe
+rundll32.exe setupapi,InstallHinfSection DefaultInstall 132 C:\\Windows\\inf\\mouhid.inf
+netsh interface ipv4 show interfaces
+ping -p 5355 localhost
+powershell.exe -Command \""Write-Output 'sekurlsa::'\""
+net localgroup Administrators TestUser /add
+certutil -urlcache -split -f https://www.google.com google.html
+start excel.exe
+echo 'CleanWipe Usage Detected' > CleanWipe.exe
+cmd.exe /c start conhost.exe /../../Windows/System32/calc.exe
+ssh -l username -L 3389:localhost:3389 remote_host
+net user TestUser /active:no
+ssh -L 8080:localhost:80 user@remote
+reg add HKCU\\Software\\Test /v TestValue /t REG_SZ /d TestData
+echo 'This is a test for generating Windows Event IDs.' > test.txt
+Get-ItemProperty -Path 'HKLM:\\Software\\Microsoft\\Windows\\CurrentVersion'
+systeminfo
+whoami
+net user
+sc query
+Test-NetConnection -ComputerName localhost -Port 80
+cmd.exe /c echo -gdel -gspd -pass -psex -wall
+cmd.exe /c echo Hello, World!
+REG ADD \""HKCU\\Control Panel\\Desktop\"" /V Wallpaper /T REG_SZ /D \""C:\\Windows\\Web\\Wallpaper\\Windows\\img0.jpg\"" /F
+gpupdate /force
+gwmi win32_bios
+Test-NetConnection -ComputerName localhost -Port 80
+gpupdate /force
+start excel.exe
+winrm quickconfig -quiet
+netsh advfirewall firewall add rule name=\""Test Rule\"" dir=out action=allow protocol=TCP localport=80
+wmic process get
+echo 'Hello, World!' > C:\\temp\\test.txt
+net use \\localhost\\admin$ /user:localhost\\administrator
+wmic /NAMESPACE:\\\\root\\subscription PATH __EventFilter CREATE Name='TestFilter', EventNameSpace='root\\cimv2',QueryLanguage='WQL', Query='SELECT * FROM __InstanceModificationEvent WITHIN 60 WHERE TargetInstance ISA \""Win32_PerfFormattedData_PerfOS_System\""'
+net use Z: \\\\localhost\\C$
+ping localhost
+klist purge
+net use \\\\remote\\share /user:username password
+netstat -ano | findstr :80
+msbuild.exe /version
+net localgroup
+whoami /user
+powershell -Command \""Start-Process 'notepad.exe'\""
+Invoke-WebRequest -Uri http://example.com -UserAgent 'Mozilla/5.0'
+echo 'This is a test' > test.txt
+powershell -Command \""& {Write-Output 'This is a test for encryption events summary'}\""
+netsh advfirewall firewall show rule name=all
+net use \\remote\\share /user:username password
+tasklist
+mavinject.exe 1234 /INJECTRUNNING C:\\Windows\\System32\\notepad.exe
+ipconfig /all
+python -c \""print('Hello, World!')\""
+REG ADD HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Run /v Test /t REG_SZ /d calc.exe
+mstsc /v:localhost
+net accounts
+powershell.exe -EncodedCommand ZWNobyAiSGVsbG8gd29ybGQi
+Copy-Item -Path C:\\temp\\test.txt -Destination C:\\temp\\test_copy.txt -ToSession (New-PSSession -ComputerName localhost)
+net use \\\\localhost\\C$ /user:localhost\\Administrator
+nslookup www.google.com
+sc.exe start Spooler
+netsh advfirewall show allprofiles
+net stop wuauserv
+echo [InternetShortcut] > %APPDATA%\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\test.url
+Get-Clipboard
+snippingtool
+Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process
+netstat -na | findstr \""207 1 2\""
+schtasks /create /tn \""TestTask\"" /tr \""cmd.exe /c copy NUL test.txt\"" /sc once /st 00:00
+netstat -ano | findstr :[port]
+powershell -Command \""Add-Type -TypeDefinition '[DllImport(\\\""user32.dll\\\ CharSet=CharSet.Auto, ExactSpelling=true)] public static extern short GetAsyncKeyState(int virtualKeyCode)
+netstat -ano
+runas /user:Administrator cmd
+ping 8.8.8.8
+net user /add testuser testpassword
+runas /user:Administrator cmd
+runas /user:Administrator cmd
+net user Administrator /active:yes
+runas /user:Administrator cmd
+net user Administrator /active:yes
+cd ..\\
+net use * \\\\ftp.example.com\\share /user:username password
+echo mimikatz.exe
+whoami
+wevtutil qe Security /f:text
+echo 'DEVICE_ID = 144120685633994752/24 AND SIG_ID = 362-8000 OR None' > test.txt
+echo 'Testing Windows Event ID generation'
+systeminfo
+tasklist
+netstat -ano
+qprocess
+whoami
+ping 8.8.8.8
+runas /user:nonexistentuser cmd
+net use \\localhost /user:nonexistentuser wrongpassword
+netsh advfirewall set allprofiles logging filename %systemroot%\\system32\\LogFiles\\Firewall\\pfirewall.log
+wevtutil cl System
+eventcreate /T ERROR /ID 1000 /L APPLICATION /D \""Test Event\""
+mstsc /v:10.0.0.10
+ping 10.0.0.1
+netsh advfirewall firewall add rule name=\""Test Rule\"" dir=out action=allow protocol=TCP localip=any remoteip=any
+sc queryex type= service state= all | find /i \""EPOAGENT\""
+echo '<% @Page Language=\""C#\"" %><% Response.Write(\""Hello, World!\"")
+Get-FileHash -Algorithm SHA256 C:\\Windows\\System32\\notepad.exe
+ping -n 1 <MS Exchange 0day C2 IP>
+Test-NetConnection -ComputerName <Exchange Server IP> -Port <Port Number>
+New-MailboxExportRequest -Mailbox \""TestUser\"" -FilePath \""\\\\TestPC\\TestShare\\TestUser.pst\""
+certutil -encode input.txt output.txt
+echo 'Test' > test.aspx
+echo DEVICE_TYPE = 308 AND CUST_4259841 CONTAINS URL|10814778825021535730[&Email=autodiscover/autodiscover.json,autodiscover/autodiscover.json?] OR None > test.txt
+runas /user:administrator \""ping 8.8.8.8\""
+net user /add testuser TestPassword123
+nslookup www.google.com
+for /L %i in (1,1,1000) do nslookup www.google.com
+nmap -p 135 $var=HOME_NET
+Test-NetConnection -ComputerName $var=HOME_NET -Port 135
+ping 8.8.8.8
+netsh advfirewall firewall add rule name=\""SMTP Outbound\"" dir=out action=allow protocol=TCP localport=any remoteport=25,465,587
+ping 127.0.0.1
+ping 192.168.1.1
+for /L %i in (1,1,100) do start /b powershell -Command \""Invoke-WebRequest -Uri http://example.com\""
+Test-NetConnection -ComputerName localhost -Port 80
+echo 'DEVICE_CLASS = Firewall AND SRC_IP <> $var=HOME_NET AND DEST_IP = $var=HOME_NET AND DEST_IP NOT_IN $var=EXCHANGE_SERVERS,$var=Mail_Servers AND DEST_PORT IN 25,465,587 AND ACTION IN 1,8 OR None' > test.txt
+netstat -ano | findstr :80
+net stop wuauserv
+net view
+eventcreate /ID 1 /L APPLICATION /T INFORMATION /SO MYEVENTSOURCE /D \""My first event log\""
+msiexec /i C:\\temp\\test.msi /qn
+Get-Content C:\\test.bak
+msiexec /i C:\\temp\\test.msi
+echo 'This is a test' > test.txt
+sc queryex > services.txt
+start /wait /high /b nul
+netstat -ano | findstr :80
+netsh advfirewall firewall add rule name=\""FTP (TCP 20)\"" dir=in action=allow protocol=TCP localport=20
+schtasks /create /tn \""TestTask\"" /tr \""cmd.exe /c echo Hello World\"" /sc once /st 00:00
+Test-NetConnection -ComputerName localhost -Port 22
+arp -a
+echo \""# test\"" >> C:\\Windows\\System32\\drivers\\etc\\hosts
+eventcreate /T ERROR /ID 100 /L APPLICATION /D \""Test Event\""
+shutdown /r /t 0
+wevtutil qe Security /c:1 /rd:true /f:text
+net use \\\\target_machine\\IPC$ /user:nonexistent_user wrong_password
+netsh advfirewall firewall add rule name='TestRule' dir=in action=allow protocol=TCP localport=5000
+net localgroup Administrators TestUser /add
+shutdown /r /t 0
+sc create MyTestService binPath= \""C:\\Windows\\System32\\notepad.exe\""
+ping -n 1 www.example.com
+nslookup duckdns.org
+ssh -v -p 22 user@192.168.1.1
+echo open 10.0.0.240 21 > ftp.txt && echo user anonymous >> ftp.txt && echo binary >> ftp.txt && echo quit >> ftp.txt && ftp -n -s:ftp.txt
+echo 'This is a test for WannaCry Detection' > test.txt
+netsh advfirewall firewall add rule name=\""Test Rule\"" dir=in action=allow protocol=TCP localip=any remoteip=any localport=any remoteport=any
+echo 'Testing Log4j vulnerability' > C:\\temp\\test.txt
+ping 10.0.0.1
+ping 192.168.1.1
+net user testuser /add && net user testuser wrongpassword
+ipconfig /release && ipconfig /renew
+eventcreate /ID 1 /L APPLICATION /T INFORMATION /SO MYEVENTSOURCE /D \""My first event log from eventcreate.exe\""
+ping 8.8.8.8
+ping 78.46.53.12
+netstat -na | findstr 3389
+net use \\\\localhost\\C$ /user:localhost\\Administrator
+netsh interface ip show config
+net share testshare=C:\\temp /grant:everyone,full
+ping 127.0.0.1
+cmd.exe /c echo Hello, World!
+sc start Spooler
+wevtutil qe Security /c:1 /rd:true /f:text
+net use \\\\192.168.1.1\\IPC$ /user:Administrator password
+Test-NetConnection -ComputerName $var -Port 144117387937972224
+Test-NetConnection -ComputerName localhost -Port 80
+telnet localhost 23
+Test-NetConnection -ComputerName localhost -Port 161
+Test-NetConnection -ComputerName localhost -Port 80
+runas /user:Administrator cmd
+net user /delete testuser
+net user TestUser /add && net user TestUser /active:no
+psexec.exe \\\\localhost -u user -p password cmd.exe
+runas /user:localhost\\Administrator cmd
+net use \\localhost\\C$ /user:nonexistentuser nonexistentpassword
+net user TestUser /active:no
+echo 'This is a test command for generating Windows Event IDs.'
+net view
+eventcreate /ID 1 /L APPLICATION /T INFORMATION /SO MYEVENTSOURCE /D \""Test event for correlation DT0127\""
+net view /all
+net view /all
+telnet 192.168.1.1 25
+net use \\\\127.0.0.1\\C$ /user:Guest
+type C:\\Windows\\System32\\drivers\\etc\\hosts
+wevtutil cl System
+gpedit.msc
+gpupdate /force
+net localgroup Administrators TestUser /delete
+net localgroup Administrators TestUser /add
+net localgroup TestGroup /delete
+net localgroup TestGroup /add
+net user /delete TestUser
+net user testuser /active:no
+net user /add TestUser TestPassword123
+net localgroup Administrators /delete TestUser
+net user /add testuser TestPassword123! && net group \""Domain Admins\"" testuser /add
+net user /add testuser TestPassword123! && net localgroup Administrators testuser /add && net user /delete testuser
+net user /delete TestUser
+net user testuser /active:no
+net localgroup TestGroup /add
+net user /add testuser TestPassword123!
+start excel.exe && timeout /t 5 && start cmd.exe /c echo Hello, World!
+runas /user:NonExistentUser cmd
+ping 127.0.0.1
+net user /add testuser Test123! && net user /delete testuser
+echo 'Test Event' | Out-File -FilePath 'C:\\Windows\\System32\\winevt\\Logs\\Application.evtx'
+ping 8.8.8.8
