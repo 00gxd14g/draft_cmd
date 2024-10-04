@@ -1,0 +1,218 @@
+powershell -Command \""Get-Process | Where-Object { $_.Name -eq 'notepad' } | Stop-Process\""
+Get-ItemProperty -Path 'HKLM:\\Software\\Microsoft\\Windows\\CurrentVersion
+gpupdate /force
+REG ADD \""HKEY_CURRENT_USER\\Control Panel\\Desktop\"" /V Wallpaper /T REG_SZ /D \""C:\\Windows\\Web\\Wallpaper\\Windows\\img0.jpg\"" /F
+wevtutil cl system
+REG ADD HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\System /v GroupPolicyRefreshTime /t REG_DWORD /d 30 /f
+cmd.exe /c echo Hello
+cmd.exe /c echo -gdel -gspd -pass -psex -wall
+reg add HKCU\\Software\\Test /v TestValue /t REG_SZ /d TestData
+REG ADD HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\System /v EnableSmartScreen /t REG_DWORD /d 1 /f
+reg add \""HKLM\\SOFTWARE\\Microsoft\\Windows Defender\"" /v \""DisableAntiSpyware\"" /t REG_DWORD /d 1 /f
+reg add HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Run /v Test /t REG_SZ /d calc.exe
+reg add HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Run /v Spynet /t REG_SZ /d calc.exe
+reg add HKLM\\SYSTEM\\CurrentControlSet\\Services\\MpsSvc /v Start /t REG_DWORD /d 4 /f
+reg add \""HKLM\\SYSTEM\\CurrentControlSet\\Services\\Eventlog\\Security\"" /v AutoBackupLogFiles /t REG_DWORD /d 0 /f
+reg add \""HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon\"" /v AutoAdminLogon /t REG_SZ /d 1 /f
+net user /add testuser TestPassword123!
+net user administrator
+Get-Process | Where-Object { $_.MainWindowTitle }
+adfind -f objectcategory=person
+net user guest /active:yes
+net user
+Get-ADUser -Filter * -Properties *
+netstat -ano
+adfind -b \""dc=domain
+arp -a
+klist purge
+whoami
+qprocess
+tasklist
+systeminfo
+Start-Process -FilePath 'C:\\Windows\\System32\\csrss.exe
+cmd.exe /c echo 'Test
+powershell.exe -Command \""Write-Output 'sekurlsa'\""
+wevtutil qe Security /c:1 /rd:true /f:text
+ping -a 192.168.1.1
+powershell.exe -Command \""Start-Process -FilePath 'winword.exe'\""
+rundll32.exe setupapi
+certutil -urlcache -split -f https://www.google.com google.html
+start excel.exe
+ssh -L 8080:localhost:80 user@localhost
+ssh -l username -L 3389:localhost:3389 target_host
+cmd.exe /c start conhost.exe /../../
+echo 'Testing CleanWipe Usage' > CleanWipe.exe
+cscript //nologo C:\\path\\to\\your\\script.vbs
+echo 'This is a test for XORDump usage detection.' > test.txt
+nltest /domain_trusts
+echo 'This is a test for generating Windows Event IDs.
+net user /add TestUser TestPassword123
+net user TestUser /active:no
+net user TestUser /delete
+echo 'This is a safe command for testing purposes
+echo 'This is a test for hashcat detection' > hashcat.exe
+attrib +h C:\\test.txt
+procdump.exe -ma lsass.exe lsass.dmp
+echo 'This is a test for Zenmap tool execution
+sc query WinDefend
+certutil -decode input.txt output.txt
+certutil -encode input.txt output.txt
+certutil.exe -verifyCtl -split -f http://example.com/test.cab
+certutil.exe -urlcache -split -f https://www.example.com/testfile.txt testfile.txt
+findstr /s password *.txt
+netsh advfirewall show allprofiles
+netsh advfirewall show allprofiles state
+net localgroup TestGroup /delete
+net localgroup Administrators TestUser /add
+net localgroup Administrators TestUser /delete
+net share
+route print
+net localgroup administrators
+wmic useraccount get name
+whoami /all
+whoami /priv
+powershell -Command \""Add-Type -TypeDefinition '[DllImport(\\\""dnsapi\\\"")]public static extern int DnsFlushResolverCache()
+net accounts /maxpwage:unlimited
+vssadmin delete shadows /all /quiet
+eventcreate /T ERROR /ID 100 /L SYSTEM /SO Test /D \""Test Event\""
+logman create trace -n IIS_Trace -o \""C:\\inetpub\\logs\\LogFiles\\W3SVC1\\u_ex%y%m%d.log\"" -p \""IIS: Logging\"" 255 5 -r -v mmddhhmm -max 250
+ping www.example.com
+echo 'URL|10814778825021535730[///etc/passwd
+echo 'URL|10814778825021535730[/etc/passwd
+ping -n 1 HONEYPOT_SERVER
+echo 'This is a test for DT0130 - P2P Traffic Detected' > test.txt
+Test-NetConnection -ComputerName www.example.com -Port 80
+ping 8.8.8.8
+net use \\\\localhost\\C$ /user:nonexistentuser nonexistentpassword
+net user testuser /add && net user testuser wrongpassword
+net use \\\\localhost\\C$ /user:localhost\\nonexistentuser wrongpassword
+netsh advfirewall firewall add rule name=\""Test Rule\"" dir=out action=allow protocol=TCP remoteip=192.168.1.1
+net use \\\\localhost\\C$ /user:localhost\\Administrator
+REG ADD HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System /v EnableLUA /t REG_DWORD /d 0 /f
+reg add HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System /v EnableLUA /t REG_DWORD /d 1 /f
+rundll32.exe
+New-Service -Name 'TestService' -BinaryFilePathName 'C:\\Windows\\System32\\notepad.exe
+ping localhost -n 5
+echo DEVICE_TYPE = 308 AND CUST_4259841 CONTAINS URL|10814778825021535730[&Email=autodiscover/autodiscover.json
+net stop eventlog && net start eventlog
+echo 'Test' > test.txt
+tasklist /v
+netsh http show servicestate
+wevtutil qe System /rd:true /c:1 /f:text
+echo 'This is a test for generating Windows Event IDs.'
+Get-WmiObject -Query 'SELECT * FROM Win32_LogicalDisk WHERE DriveType = 3'
+echo 'jndi:jndi:dns:jndi:ldap:jndi:ldaps:jndi:rmi:' > test.txt
+ping -n 1 <MS Exchange 0day C2 IP>
+Test-NetConnection -ComputerName <DMZ_Server_Ranges> -Port 25
+Get-FileHash -Algorithm SHA256 C:\\Windows\\System32\\notepad.exe
+nslookup nonexistentsite.com
+echo 'Test' > test.aspx
+echo 'Test Webshell Creation' > C:\\inetpub\\wwwroot\\test.aspx
+Get-ItemProperty -Path 'HKLM:\\Software\\Microsoft\\Windows\\CurrentVersion'
+qwinsta
+mstsc /v:<target_IP>:3389
+Copy-Item -Path C:\\temp\\test.txt -Destination C:\\temp\\testcopy.txt -ToSession (New-PSSession -ComputerName localhost)
+echo 'This is a test command for generating Windows Event IDs.'
+powershell.exe -Command \New-MailboxExportRequest -Mailbox ExampleUser -FilePath \\\\ExampleServer\\PSTs\\ExampleUser.pst\
+eventcreate /ID 1 /L APPLICATION /T INFORMATION /SO MYEVENTSOURCE /D \My first event log\
+wevtutil sl Microsoft-Windows-Sysmon/Operational /e:true
+Get-WmiObject -Query \SELECT * FROM Win32_OperatingSystem\
+sc create MyTestService binPath= \C:\\Windows\\System32\\notepad.exe\
+gpedit.msc
+powershell -Command \Start-Sleep -s 300
+cmd.exe /c netstat
+net stop spooler && net start spooler
+sc stop wuauserv && sc start wuauserv
+net user /add testuser TestPassword123 && net user /delete testuser
+net localgroup TestGroup /add
+net group /delete TestGroup
+net user /add testuser Test@123
+net user /delete TestUser
+runas /user:Administrator cmd
+runas /user:nonexistentuser cmd
+runas /user:administrator \ping 8.8.8.8\
+net use \\\\localhost\\C$ /user:Administrator password
+netsh advfirewall set allprofiles logging filename %systemroot%\\system32\\LogFiles\\Firewall\\pfirewall.log
+echo %USERNAME% > C:\\Smex\\Temp\\test.txt
+echo 'Test' > C:\\Smex\\Temp\\test.txt
+echo 'DEVICE_ID = 144116288107577344/40 OR None' > test.txt
+ping 192.168.10.54
+powershell -Command \Get-EventLog -LogName Application -Newest 100 | Where-Object { $_.EventID -eq 157 }\
+netsh interface ip set address \Local Area Connection\ dhcp
+telnet smtp.gmail.com 587
+telnet 192.168.1.1 25
+ping localhost
+ping 192.168.1.1
+echo open 127.0.0.1 21 > ftp.txt && echo user anonymous >> ftp.txt && echo binary >> ftp.txt && echo quit >> ftp.txt && ftp -n -s:ftp.txt
+echo open ftp.example.com 21 > ftpscript.txt && echo user anonymous >> ftpscript.txt && echo binary >> ftpscript.txt && echo quit >> ftpscript.txt && ftp -n -s:ftpscript.txt && del ftpscript.txt
+Test-NetConnection -ComputerName localhost -Port 80
+nbtstat -A 127.0.0.1
+nbtstat -A 192.168.1.1
+mstsc /v:localhost:3389
+net use \\\\localhost\\IPC$ /user:localhost
+net use \\\\localhost\\IPC$ /user:guest
+net view /all
+Test-NetConnection -ComputerName 192.168.1.1 -Port 161
+Test-NetConnection -ComputerName localhost -Port 161
+netstat -ano | findstr :25 :587
+telnet localhost 25
+echo 'This command does not exist'
+echo 'This is a test command for DT0144 - SSH Scan - R2L'
+telnet 127.0.0.1 23
+telnet 192.168.1.1 23
+net view
+Invoke-WebRequest -Uri http://example.com
+netstat -an | findstr \ESTABLISHED\
+net use \\\\localhost\\C$ /user:disabled_account password
+net user /add testuser Test1234!
+echo 'Testing Windows Event ID generation'
+net use \\localhost /user:nonexistentuser nonexistentpassword
+net use \\localhost /user:nonexistentuser wrongpassword
+cmd.exe /c echo 'This is a test.' > test.txt
+psexec.exe \\\\localhost -i -s cmd.exe
+net use \\\\localhost\\C$ /user:localhost\\Administrator password
+echo %cd%\\..\\ > test.txt
+nslookup www.example.com
+netsh advfirewall firewall add rule name=\FTP (TCP 21)\ dir=out action=allow protocol=TCP localport=21
+net user /add testuser1 && net user testuser1 /active:no
+runas /user:TestUser cmd
+mstsc /v:localhost
+schtasks /create /tn \TestTask\ /tr \C:\\Windows\\System32\\notepad.exe\ /sc daily /st 00:00
+net user /add testuser TestPassword123! && wmic USERACCOUNT WHERE Name='testuser' SET PasswordExpires=FALSE
+powershell -Command \Start-Process -FilePath 'C:\\Program Files\\Microsoft Office\\root\\Office16\\EXCEL.EXE' -ArgumentList '/e'\
+netsh advfirewall set allprofiles state off
+findstr /s /i \password\ C:\\*
+certutil.exe -verifyCtl -split -f http://example.com/testfile
+sc query WinDefend && sc config WinDefend start= disabled && sc stop WinDefend
+notepad.exe zenmap.exe & start zenmap.exe
+echo 'This is a test' > test.txt
+cscript.exe //nologo C:\\test.vbs
+cmd.exe /c start conhost.exe /../../Windows/System32/notepad.exe
+ssh -D 8080 localhost
+certutil -urlcache -split -f https://www.example.com
+start excel.exe && start winword.exe && start cmd.exe && start powershell.exe
+ping -a <target_IP>
+ipconfig /displaydns
+powershell.exe -Command \Get-Process -Name LSASS\
+cmd.exe /c echo kerberos sekurlsa
+netstat -ano | findstr :308
+cmd.exe /c echo 'Hello
+cmd.exe /c start notepad.exe
+qprocess *
+adfind -sc u:administrator
+powershell.exe -ExecutionPolicy Bypass -File .\\ADRecon.ps1
+adfind -default -f objectcategory=person
+reg add \HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon\ /v AutoAdminLogon /t REG_SZ /d 1 /f
+reg add \HKLM\\SYSTEM\\CurrentControlSet\\Services\\EventLog\\Security\ /v AutoBackupLogFiles /t REG_DWORD /d 0 /f
+reg add HKLM\\Software\\Microsoft\\Windows\\CurrentVersion\\Run /v Test /t REG_SZ /d calc.exe
+reg add \HKLM\\SOFTWARE\\Microsoft\\Windows Defender\ /v \SampleValue\ /t REG_SZ /d \SampleData\ /f
+REG ADD \HKCU\\Control Panel\\Desktop\ /V Wallpaper /T REG_SZ /D \C:\\Windows\\Web\\Wallpaper\\Windows\\img0.jpg\ /F
+echo 'Test' > test.txt && del test.txt
+echo '<img src=\x\ onerror=\alert('XSS')\>' > test.html && start test.html
+net user /add testuser Test@123 && net user testuser /active:yes && net use \\\\localhost\\C$ /user:testuser Test@123
+net use \\localhost\\C$ /user:nonexistentuser nonexistentpassword
+net use \\192.168.10.99 /user:Administrator /persistent:no
+echo 'This is a safe command for testing purposes.'
+echo 'Test Event' | Out-File -FilePath C:\\temp\\test.txt
+eventcreate /T ERROR /ID 100 /L SYSTEM /SO 'Hardware Error' /D 'Test hardware error event'
+ping 31.223.76.1
