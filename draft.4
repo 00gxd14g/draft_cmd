@@ -1,0 +1,154 @@
+Invoke-DllInjection
+Invoke-ReflectivePEInjection
+Invoke-Shellcode
+Invoke-WmiCommand
+Out-EncodedCommand
+Out-CompressedDll
+Out-EncryptedScript
+Remove-Comment
+New-UserPersistenceOption
+New-ElevatedPersistenceOption
+Add-Persistence
+Install-SSP
+Get-SecurityPackages
+Find-AVSignature
+Invoke-TokenManipulation
+Invoke-CredentialInjection
+Invoke-NinjaCopy
+Invoke-Mimikatz
+Get-Keystrokes
+Get-GPPPassword
+Get-GPPAutologon
+Get-TimedScreenshot
+New-VolumeShadowCopy
+Get-VolumeShadowCopy
+Mount-VolumeShadowCopy
+Remove-VolumeShadowCopy
+Get-VaultCredential
+Out-Minidump
+Get-MicrophoneAudio
+Set-MasterBootRecord
+Set-CriticalProcess
+PowerUp
+Invoke-Portscan
+Get-HttpStatus
+Invoke-ReverseDnsLookup
+PowerView
+powersploit
+sebackupprivilege
+reg save system.hive
+invoke-maldoc
+get-netcomputer -unconstrained
+get-adcomputer -delegation
+powershell
+$socket = New-Object System.Net.Sockets.TcpClient("localhost", 4444)
+get-childitem
+inetpub
+web.config
+sidhistory
+get-domainsid
+sharphound
+bloodhound
+collectionmethod -domain
+collectionmethod -d
+collectionmethod -ldap
+collectionmethod -all
+collectionmethod -session
+enable-psremoting
+enter-pssession
+new-pssession
+new-item
+copy-item
+spool
+mscms
+easysystemshell
+add-mppreference
+set-mppreference -exclusionpath "C:\malware"
+set-mppreference -exclusionprocess "badprocess.exe"
+disablerealtimemonitoring
+disableioavprotection
+disablescriptscanning
+get-psdrive
+get-childitem env
+wmic logicaldisk get name
+dsrmadminlogonbehavior
+--dns --limit --filter --forest --legacy --domain
+powerpxe
+get-pxe
+findstr /R /C:"password" /C:"pass" /C:"sysvol" /C:"policies" /C:"xml" /C:"md5" /C:"ntlm" /C:"sam" /C:"windows"
+conptyshell
+telnet
+/bin/sh /bin/bash
+lsadump
+sekurlsa
+privilege::debug
+misc::cmd
+invoke-dcom
+ipconfig
+get-netipconfiguration
+get-dnsclientserveraddress
+get-netroute
+get-netneighbor
+netstat
+find-domainshare
+get-childitem snmp
+reg query snmp
+handle.exe -a
+wmic get-wmiobject process
+get-acl
+add-objectacl
+get-aduser
+get-adgroup
+get-netgroupmember
+get-adgroupmember
+get-localuser
+get-childitem user
+get-localgroup
+misc::efs
+lsadump::dcsync
+pkicertificatetemplate
+pkiextended
+mspki
+find /vulnerable /currentuser
+certipy request
+tgtdeleg
+asktgt
+--adcs
+kerberoast
+sekurlsa kerberos golden
+asktgt user rc4 aes256 ptt
+preauthnotrequired
+getuserspn
+get-spn
+sekurlsa ntlm pth
+runas /netonly /user:domain\admin "cmd.exe /c powershell"
+netsh firewall show profile
+bitsadmin /transfer
+start-bits
+bitstransfer
+auditpol /clear
+clear-eventlog
+route.exe print
+chcp 65001
+powershell -executionpolicy bypass
+tasklist /svc
+whoami /all
+portqry.exe -n 192.168.1.1 -e 80 -p TCP
+wbadmin delete systemstatebackup
+regedit /s regfile.reg
+regini script.ini
+taskkill /f /im process.exe
+whoami /groups
+nltest /dclist:domain
+ping -n 10 192.168.1.1
+downloadstring
+downloadfile
+invoke-webrequest
+ntdsutil
+procdump.exe -ma lsass.exe lsass.dmp
+rundll32.exe comsvcs.dll, MiniDump
+vssadmin delete shadows /all /quiet
+schtasks /create /sc minute /mo 1 /tn "bad_task" /tr "cmd.exe /c powershell"
+ms-settings:shell
+bcdedit /set {default} safeboot minimal
+htmlapplication
